@@ -43,3 +43,8 @@ model <- svm(pop ~ fsc_small + fsc_perp + fsc_big + pe + chl_big + chl_small, da
 spredict <- predict(model, test, type="class")
 ssame <- spredict == test$pop
 sum(ssame)/length(spredict)
+
+
+table(pred = tpredict, true = test$pop)
+table(pred = fpredict, true = test$pop)
+table(pred = spredict, true = test$pop)
