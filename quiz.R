@@ -42,9 +42,23 @@ importance(model)
 model <- svm(pop ~ fsc_small + fsc_perp + fsc_big + pe + chl_big + chl_small, data=train)
 spredict <- predict(model, test, type="class")
 ssame <- spredict == test$pop
-sum(ssame)/length(spredict)
+bad_prec <- sum(ssame)/length(spredict)
+
+train <- subset(train, file_id != 208)
+test <- subset(test, file_id != 208)
+model <- svm(pop ~ fsc_small + fsc_perp + fsc_big + pe + chl_big + chl_small, data=train)
+spredict <- predict(model, test, type="class")
+ssame <- spredict == test$pop
+good_prec <- sum(ssame)/length(spredict)
 
 
-table(pred = tpredict, true = test$pop)
-table(pred = fpredict, true = test$pop)
-table(pred = spredict, true = test$pop)
+# table(pred = tpredict, true = test$pop)
+# table(pred = fpredict, true = test$pop)
+# table(pred = spredict, true = test$pop)
+
+# plot(fsc_small~time,data=seaflow)
+# plot(fsc_perp~time,data=seaflow)
+# plot(fsc_big~time,data=seaflow)
+# plot(pe~time,data=seaflow)
+# plot(chl_small~time,data=seaflow)
+# plot(chl_big~time,data=seaflow)
